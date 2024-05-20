@@ -1,0 +1,8 @@
+Flask
+Flask-JWT-Extended
+Flask-SQLAlchemy
+pymysql
+werkzeug
+python-dotenv
+flask-cors
+cryptography
