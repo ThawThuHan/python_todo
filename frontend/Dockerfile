@@ -7,10 +7,9 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-ENV BACKEND_HOST 192.168.10.129
-ENV BACKEND_PORT 5000
+ENV BACKEND_URL http://192.168.10.129:5000
 
-RUN sed -i "s/127.0.0.1:5000/$BACKEND_HOST:$BACKEND_PORT/g" /app/script.js
+RUN chmod +x /app/entrypoint.sh
 
 # Install http-server to serve static files
 RUN npm install -g http-server
@@ -19,4 +18,4 @@ RUN npm install -g http-server
 EXPOSE 8080
 
 # Run http-server when the container launches
-CMD ["http-server", "-p", "8080"]
+ENTRYPOINT [ "/app/entrypoint.sh" ]
