@@ -43,13 +43,13 @@ class Task(db.Model):
     description = db.Column(db.String(200), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
+@app.before_request
 def initialization_db():
+    app.before_request_funcs[None].remove(initialization_db)
     with app.app_context():
         wait_for_db()
         db.create_all()
         print('Database Initilized!')
-
-initialization_db()
 
 @app.route('/register', methods=['POST'])
 def register():
