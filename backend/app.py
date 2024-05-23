@@ -84,7 +84,7 @@ def manage_tasks():
         new_task = Task(description=data['description'], user_id=user_id)
         db.session.add(new_task)
         db.session.commit()
-        return jsonify({'message': 'Task added successfully'})
+        return jsonify({"data": {'id': new_task.id, 'description': new_task.description}, 'message': 'Task added successfully'})
     else:
         tasks = Task.query.filter_by(user_id=user_id).all()
         return jsonify([{'id': task.id, 'description': task.description} for task in tasks])
