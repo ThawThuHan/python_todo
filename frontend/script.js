@@ -19,7 +19,11 @@ function register() {
         body: JSON.stringify({ username, password })
     })
         .then(response => response.json())
-        .then(data => alert(data.message));
+        .then(data => {
+            alert(data.message)
+            document.getElementById('register-username').value = none;
+            document.getElementById('register-password').value = none;
+        });
 }
 
 function login() {

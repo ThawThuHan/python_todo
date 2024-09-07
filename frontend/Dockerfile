@@ -1,21 +1,11 @@
-# Use an official node runtime as a parent image
-FROM node:16-alpine
+FROM nginx
 
-# Set the working directory in the container
-WORKDIR /app
+ENV BACKEND_URL="http://192.168.10.120:5000"
 
-# Copy the current directory contents into the container at /app
-COPY . /app
+WORKDIR /usr/share/nginx/html/
 
-ENV BACKEND_URL http://192.168.10.129:5000
+COPY . .
 
-RUN chmod +x /app/entrypoint.sh
+EXPOSE 80
 
-# Install http-server to serve static files
-RUN npm install -g http-server
-
-# Make port 8080 available to the world outside this container
-EXPOSE 8080
-
-# Run http-server when the container launches
-ENTRYPOINT [ "/app/entrypoint.sh" ]
+CMD sed -i "s|http://127.0.0.1:5000|${BACKEND_URL}|g" /usr/share/nginx/html/script.js && nginx -g "daemon off;"

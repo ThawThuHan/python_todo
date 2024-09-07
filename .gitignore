@@ -1,0 +1,6 @@
+.myenv/*
+__pycache__
+backend/test/__pycache__
+backend/test/.pytest_cache
+.env
+backend/.env
